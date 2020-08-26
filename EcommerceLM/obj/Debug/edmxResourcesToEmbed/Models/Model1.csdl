@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameCategory" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.fk_Categoria" FromRole="Category" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ImageProducts">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SrcImage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Products" Type="Int32" />
+    <NavigationProperty Name="Products1" Relationship="Self.fk_Products" FromRole="ImageProducts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameProduct" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Sale" Type="Boolean" />
+    <Property Name="Category" Type="Int32" />
+    <NavigationProperty Name="Category1" Relationship="Self.fk_Categoria" FromRole="Products" ToRole="Category" />
+    <NavigationProperty Name="ImageProducts" Relationship="Self.fk_Products" FromRole="Products" ToRole="ImageProducts" />
+    <NavigationProperty Name="Shoppingcart" Relationship="Self.fk_Product" FromRole="Products" ToRole="Shoppingcart" />
+  </EntityType>
+  <EntityType Name="Shoppingcart">
+    <Key>
+      <PropertyRef Name="ShopCartID" />
+    </Key>
+    <Property Name="ShopCartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product" Type="Int32" />
+    <Property Name="OrderClient" Type="Boolean" />
+    <Property Name="Users" Type="Int32" />
+    <NavigationProperty Name="Products" Relationship="Self.fk_Product" FromRole="Shoppingcart" ToRole="Products" />
+    <NavigationProperty Name="Users1" Relationship="Self.fk_User" FromRole="Shoppingcart" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direction" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Shoppingcart" Type="Int32" />
+    <Property Name="Purchaseorder" Type="Int32" />
+    <NavigationProperty Name="Shoppingcart1" Relationship="Self.fk_User" FromRole="Users" ToRole="Shoppingcart" />
+  </EntityType>
+  <Association Name="fk_Categoria">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="ImageProducts" Type="Self.ImageProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ImageProducts">
+        <PropertyRef Name="Products" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Shoppingcart" Type="Self.Shoppingcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Shoppingcart">
+        <PropertyRef Name="Product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Shoppingcart" Type="Self.Shoppingcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Shoppingcart">
+        <PropertyRef Name="Users" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EcommerceContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="ImageProducts" EntityType="Self.ImageProducts" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="Shoppingcart" EntityType="Self.Shoppingcart" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="fk_Categoria" Association="Self.fk_Categoria">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Products" Association="Self.fk_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ImageProducts" EntitySet="ImageProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Product" Association="Self.fk_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Shoppingcart" EntitySet="Shoppingcart" />
+    </AssociationSet>
+    <AssociationSet Name="fk_User" Association="Self.fk_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Shoppingcart" EntitySet="Shoppingcart" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

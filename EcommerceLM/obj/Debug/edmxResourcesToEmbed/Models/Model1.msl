@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EcommerceModelStoreContainer" CdmEntityContainer="EcommerceContext">
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="EcommerceModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageProducts">
+      <EntityTypeMapping TypeName="EcommerceModel.ImageProducts">
+        <MappingFragment StoreEntitySet="ImageProducts">
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="SrcImage" ColumnName="SrcImage" />
+          <ScalarProperty Name="Products" ColumnName="Products" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="EcommerceModel.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Sale" ColumnName="Sale" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shoppingcart">
+      <EntityTypeMapping TypeName="EcommerceModel.Shoppingcart">
+        <MappingFragment StoreEntitySet="Shoppingcart">
+          <ScalarProperty Name="ShopCartID" ColumnName="ShopCartID" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="OrderClient" ColumnName="OrderClient" />
+          <ScalarProperty Name="Users" ColumnName="Users" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EcommerceModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Direction" ColumnName="Direction" />
+          <ScalarProperty Name="Shoppingcart" ColumnName="Shoppingcart" />
+          <ScalarProperty Name="Purchaseorder" ColumnName="Purchaseorder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
