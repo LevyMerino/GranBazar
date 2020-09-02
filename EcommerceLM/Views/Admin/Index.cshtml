@@ -60,10 +60,21 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new {  id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Details", "Details", new {  id=item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new {@class = "DeleteMesagge" })
         </td>
     </tr>
 }
 
 </table>
+
+@section scripts{
+    <script>
+        $(".DeleteMesagge").click(function (event) {
+            if (!confirm('¿Estas seguro que deseas eliminar?')) {
+                event.preventDefault();
+            }
+        });
+
+    </script> 
+}

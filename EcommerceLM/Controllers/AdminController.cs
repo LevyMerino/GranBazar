@@ -103,5 +103,38 @@ namespace EcommerceLM.Controllers
                 throw;
             }
         }
+        public ActionResult Details (int id)
+        {
+            try
+            {
+                using (var db = new EcommerceContext())
+                {
+                    Products select_product = db.Products.Find(id);
+                    return View(select_product);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                using (var db = new EcommerceContext())
+                {
+                    Products select_product = db.Products.Find(id);
+                    db.Products.Remove(select_product);
+                    db.SaveChanges();
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
